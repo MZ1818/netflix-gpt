@@ -28,7 +28,8 @@
 - Fetch Data for Trailer Video
 - Update store with Trailer Video data
 - Embedded the Ytube video and make it autoplay and mute
-  -Tailwind Classes to make Main Container
+- Tailwind Classes to make Main Container
+- Build Secondary Component
 
 # Features
 
