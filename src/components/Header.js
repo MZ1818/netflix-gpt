@@ -4,9 +4,12 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser, removeUser } from "../utils/userSlice";
-import { LOGO } from "../utils/constants";
+import { LOGO, SUPPORTED_LANGUAGES } from "../utils/constants";
+import { toggleGptSearchView } from "../utils/gptSlice";
+import { changeLanguage } from "../utils/configSlice";
 
 const Header = () => {
+  const showGptSearch = useSelector((store) => store.gpt.showGptSearch);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((store) => store.user);
@@ -51,15 +54,42 @@ const Header = () => {
     return () => unsubscribe();
   }, []);
 
+  const handleGptSearchClick = () => {
+    //Toggle GPT Search
+    dispatch(toggleGptSearchView());
+  };
+
+  const handleLanguageChange = (e) => {
+    dispatch(changeLanguage(e.target.value));
+  };
+
   return (
     <div className="absolute w-screen px-8 py-2 bg-gradient-to-b from-black z-10 flex justify-between">
       <img className="w-44" src={LOGO} alt="logo" />
       {user && (
         <div className="flex">
+          {showGptSearch && (
+            <select
+              className="px-3 mx-1 my-4 rounded-md bg-lime-900 text-white"
+              onChange={handleLanguageChange}
+            >
+              {SUPPORTED_LANGUAGES.map((lang) => (
+                <option key={lang.identifier} value={lang.identifier}>
+                  {lang.name}
+                </option>
+              ))}
+            </select>
+          )}
+          <button
+            onClick={handleGptSearchClick}
+            className="bg-purple-800 text-white px-3 mx-1 my-4 rounded-md "
+          >
+            {showGptSearch ? "Home Page" : "GPT Search"}
+          </button>
           <img className="w-10 h-10 mt-4" src={user?.photoURL} alt="usericon" />
           <button
             onClick={handleSignOut}
-            className="bg-red-500 text-white font-bold px-2 mx-1 my-4 rounded-sm"
+            className="bg-red-500 text-white px-3 mx-1 my-4 rounded-md"
           >
             Sign Out
           </button>

@@ -30,6 +30,13 @@
 - Embedded the Ytube video and make it autoplay and mute
 - Tailwind Classes to make Main Container
 - Build Secondary Component
+- Build Movie list
+- Build Movie Card
+- TMDB Image CDN URL
+- useTrendingMovies,usePopularMovies,useUpcomingMovies
+- GPT Search Feature
+- GPT Search Bar
+- (BONUS) Multi-Language Feature in our App
 
 # Features
 
